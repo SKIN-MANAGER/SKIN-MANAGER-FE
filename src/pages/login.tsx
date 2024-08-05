@@ -9,6 +9,8 @@ import {
     CssBaseline,
 } from '@mui/material'
 import axios from 'axios'
+import KakaoLogin from './kakaoLogin'
+import NaverLogin from './naverLogin'
 
 const Login = () => {
     const BASE = '/api/login'
@@ -36,9 +38,9 @@ const Login = () => {
 
             // 로그인 처리 예시
             if (response.status === 200) {
-                router.push('/');
+                router.push('/')
             } else {
-                setError('이메일 또는 비밀번호가 잘못되었습니다.');
+                setError('이메일 또는 비밀번호가 잘못되었습니다.')
             }
         } catch (err) {
             setError('로그인 중 오류가 발생했습니다.')
@@ -103,8 +105,10 @@ const Login = () => {
                     </Button>
                 </Box>
             </Box>
+            <KakaoLogin />
+            <NaverLogin />
         </Container>
-    );
-};
+    )
+}
 
-export default Login;
+export default Login
