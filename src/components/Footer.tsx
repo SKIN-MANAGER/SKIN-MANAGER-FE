@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Typography, Container, Link } from '@mui/material';
+import React from 'react'
+import { Box, Typography, Container, Link } from '@mui/material'
 
 function Footer() {
   return (
@@ -27,7 +27,7 @@ function Footer() {
         </Typography>
       </Container>
     </Box>
-  );
+  )
 }
 
-export default Footer;
+export default Footer

@@ -1,10 +1,10 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { createTheme, CssBaseline } from "@mui/material";
-import { ThemeProvider } from "react-bootstrap";
-import Head from 'next/head';
+import "@/styles/globals.css"
+import type { AppProps } from "next/app"
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
+import { createTheme, CssBaseline } from "@mui/material"
+import { ThemeProvider } from "react-bootstrap"
+import Head from 'next/head'
 
 const theme = createTheme()
 
@@ -23,4 +23,4 @@ const App = ({ Component, pageProps }: AppProps) => {
   )
 }
 
-export default App;
+export default App
