@@ -1,0 +1,6 @@
+.kakaoImage {
+    cursor: pointer;
+    /* CSS에서 이미지 크기 조정 시 비율 유지 */
+    width: auto;
+    height: auto;
+}
