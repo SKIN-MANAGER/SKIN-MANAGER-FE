@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 
-const CallbackServer = async (req: NextApiRequest, res: NextApiResponse) => {
+const KakaoCallbackServer = async (req: NextApiRequest, res: NextApiResponse) => {
     const { code } = req.query
     const BASE = 'http://localhost:8080/api/kakao/login'
 
@@ -34,4 +34,4 @@ const CallbackServer = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 }
 
-export default CallbackServer
+export default KakaoCallbackServer

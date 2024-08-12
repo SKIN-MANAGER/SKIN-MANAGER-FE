@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
-const CallbackClient = () => {
+const KakaoCallbackClient = () => {
     const router = useRouter()
     const { code } = router.query
 
@@ -11,10 +11,9 @@ const CallbackClient = () => {
             const fetchData = async () => {
                 try {
                     // 백엔드 API로 인증 코드 전송
-                    const response = await axios.get('/api/auth/kakao/callbackServer', {
+                    const response = await axios.get('/api/auth/kakao/kakaoCallbackServer', {
                         params: { code }
                     })
-
                     // 인증 성공시 홈으로 이동
                     router.push('/')
                 } catch (error) {
@@ -29,4 +28,4 @@ const CallbackClient = () => {
     return <p>Loading...</p>
 }
 
-export default CallbackClient
+export default KakaoCallbackClient

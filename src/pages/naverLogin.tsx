@@ -1,17 +1,18 @@
 import Image from 'next/image'
 import styles from '../styles/naverLogin.module.css'  // CSS 모듈 예시
+import { useState } from 'react'
 
 const NaverLogin = () => {
     const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID
     const NAVER_REDIRECT_URI = process.env.NEXT_PUBLIC_NAVER_REDIRECT_URI
-    const STATE = 'random_string_for_state'  // CSRF 보호를 위해 랜덤 문자열 사용
+    const [state] = useState(() => Math.random().toString(36).substring(2));  // CSRF 보호를 위해 랜덤 문자열 사용
 
     const naverLogin = () => {
         if (!NAVER_CLIENT_ID || !NAVER_REDIRECT_URI) {
             console.error('Naver client ID or redirect URI is missing.')
             return
         }
-        window.location.href = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${encodeURIComponent(NAVER_REDIRECT_URI)}&state=${STATE}`
+        window.location.href = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${encodeURIComponent(NAVER_REDIRECT_URI)}&state=${state}`
     }
 
     return (
