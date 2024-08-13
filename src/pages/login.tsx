@@ -19,24 +19,22 @@ const Login = () => {
     const [error, setError] = useState('')
     const router = useRouter()
 
-    const handleSubmit = async (event: React.FormEvent) => {
+    const loginHandler = async (event: React.FormEvent) => {
+        event.preventDefault()
+        setError('')
+
+        if (!id || !pwd) {
+            setError('이메일과 비밀번호를 입력해주세요.')
+            return
+        }
+
         try {
-            event.preventDefault()
-            setError('')
-
-            // 간단한 유효성 검사 예시
-            if (!id || !pwd) {
-                setError('이메일과 비밀번호를 입력해주세요.')
-                return
-            }
-
             const response = await axios.post(BASE, { id, pwd }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
 
-            // 로그인 처리 예시
             if (response.status === 200) {
                 router.push('/')
             } else {
@@ -46,6 +44,11 @@ const Login = () => {
             setError('로그인 중 오류가 발생했습니다.')
             console.error("login.tsx : ", err)
         }
+    }
+
+    const signupHandler = () => {
+        // 회원가입 처리 로직 추가
+        router.push('/signup') // 예시로 회원가입 페이지로 이동
     }
 
     return (
@@ -62,7 +65,7 @@ const Login = () => {
                 <Typography component="h1" variant="h5">
                     로그인
                 </Typography>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={loginHandler} noValidate sx={{ mt: 1 }}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -99,11 +102,20 @@ const Login = () => {
                         fullWidth
                         variant="contained"
                         color="primary"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{ mt: 1, mb: 1 }} // 아래에 마진을 줘서 버튼 사이 간격 유지
                     >
                         로그인
                     </Button>
                 </Box>
+                <Button
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    onClick={signupHandler} // 회원가입 버튼 클릭 시 동작
+                    sx={{ mt: 1, mb: 1 }}
+                >
+                    회원가입
+                </Button>
             </Box>
             <KakaoLogin />
             <NaverLogin />

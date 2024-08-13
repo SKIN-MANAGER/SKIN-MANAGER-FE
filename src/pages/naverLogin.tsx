@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import styles from '../styles/naverLogin.module.css'  // CSS 모듈 예시
 import { useState } from 'react'
+import { Box } from '@mui/material'
 
 const NaverLogin = () => {
     const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID
@@ -16,17 +17,28 @@ const NaverLogin = () => {
     }
 
     return (
-        <div>
+        <Box
+            component="div"
+            sx={{
+                position: 'relative', // 부모 요소의 위치를 상대적으로 설정 (fill 사용 시 필요)
+                width: '100%', // 부모 요소의 너비를 100%로 설정
+                height: '110px', // 원하는 높이 설정
+                marginTop: 1,
+                marginBottom: 1,
+                overflow: 'hidden', // 자식 요소가 부모 요소를 벗어나지 않도록 설정
+            }}
+            onClick={naverLogin}
+        >
             <Image
                 src='/images/naver/ko/btnG_완성형.png'
                 alt='네이버 로그인'
-                width={270}  // 이미지의 너비
-                height={40}  // 이미지의 높이
-                priority     // 우선 로드
-                className={styles.naverImage}  // CSS 모듈 클래스
-                onClick={naverLogin}
+                fill // 부모 요소를 가득 채우도록 설정
+                style={{ objectFit: 'contain' }} // 이미지 비율을 유지하며 맞춤
+                sizes="(max-width: 600px) 100vw, 600px" // 뷰포트에 따라 이미지 크기 조정
+                priority // 중요 이미지로 설정하여 우선 로드
+                className={styles.naverImage}
             />
-        </div>
+        </Box>
     )
 }
 
