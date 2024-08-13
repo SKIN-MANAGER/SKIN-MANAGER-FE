@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
 import { useAuth } from '@/context/authContext'
 
-const pages = ['Products', 'Pricing', 'Blog']
+const pages = ['커뮤니티']
 const settings = ['Profile', 'Account', 'Dashboard', '로그아웃']
 
 const Header = () => {
@@ -70,7 +70,7 @@ const Header = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        SkinManager
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
