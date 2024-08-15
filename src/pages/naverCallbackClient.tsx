@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useAuth } from '@/context/authContext'
+import { useToken } from '@/context/tokenContext'
 
 const NaverCallbackClient = () => {
     const router = useRouter()
     const { code, state } = router.query
-    const { token, setToken } = useAuth()
+    const { token, setToken } = useToken()
     const [error, setError] = useState('')
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const NaverCallbackClient = () => {
                     const response = await axios.get('/api/auth/naver/naverCallbackServer', {
                         params: { code, state }
                     })
-                    setToken(response.data)
+                    setToken(response.data.result.token.accessToken)
                 } catch (error) {
                     console.error('naverCallbackClient.tsx : ', error)
                     setError('로그인실패. 다시시도해주세요.')

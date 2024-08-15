@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -12,14 +12,13 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
-import { useAuth } from '@/context/authContext'
+import { useToken } from '@/context/tokenContext'
 
 const pages = ['커뮤니티']
 const settings = ['Profile', 'Account', 'Dashboard', '로그아웃']
 
 const Header = () => {
-    const { token, setToken } = useAuth() // useAuth 훅으로 token과 setToken 가져오기
-
+    const { token, removeToken } = useToken()
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
@@ -39,7 +38,7 @@ const Header = () => {
     }
 
     const handleLogout = () => {
-        setToken(null) // 로그아웃 시 토큰을 null로 설정
+        removeToken()
     }
 
     const handleMenuItemClick = (setting: string) => {
