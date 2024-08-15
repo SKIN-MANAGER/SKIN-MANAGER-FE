@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useAuth } from '@/context/authContext'
+import { useToken } from '@/context/tokenContext'
 
 const KakaoCallbackClient = () => {
     const router = useRouter()
     const { code } = router.query
-    const { token, setToken } = useAuth()
+    const { token, setToken } = useToken();
     const [error, setError] = useState('')
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const KakaoCallbackClient = () => {
                     const response = await axios.get('/api/auth/kakao/kakaoCallbackServer', {
                         params: { code }
                     })
-                    setToken(response.data)
+                    setToken(response.data.result.token.accessToken)
                 } catch (error) {
                     console.error('kakaoCallbackClient.tsx : ', error)
                     setError('로그인실패. 다시시도해주세요.')

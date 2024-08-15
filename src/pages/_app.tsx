@@ -4,8 +4,8 @@ import Footer from "@/components/Footer"
 import { createTheme, CssBaseline } from "@mui/material"
 import { ThemeProvider } from "react-bootstrap"
 import Head from 'next/head'
-import { AuthProvider } from "@/context/authContext"
 import { useRouter } from "next/router"
+import { TokenProvider } from "@/context/tokenContext"
 
 const theme = createTheme()
 
@@ -17,15 +17,15 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AuthProvider>
-        <Head>
-          <title>SkinManager</title>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
-        {!isLoginPage && !isSignupPage && <Header />}
-        <Component {...pageProps} />
-        {!isLoginPage && !isSignupPage && <Footer />}
-      </AuthProvider>
+      <Head>
+        <title>SkinManager</title>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <TokenProvider>
+      {!isLoginPage && !isSignupPage && <Header />}
+      <Component {...pageProps} />
+      {!isLoginPage && !isSignupPage && <Footer />}
+      </TokenProvider>
     </ThemeProvider>
   )
 }
