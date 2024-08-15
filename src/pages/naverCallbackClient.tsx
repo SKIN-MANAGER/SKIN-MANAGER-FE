@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useToken } from '@/context/tokenContext'
+import { useAuth } from '@/context/authContext'
 
 const NaverCallbackClient = () => {
     const router = useRouter()
     const { code, state } = router.query
-    const { token, setToken } = useToken()
     const [error, setError] = useState('')
+    const { setTokens } = useAuth()
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -16,13 +16,27 @@ const NaverCallbackClient = () => {
                 return
             }
 
+            const isAutoLogin = sessionStorage.getItem('isAutoLogin')
+            const autoLogin = isAutoLogin === 'true' ? 'Y' : 'N'
+
             try {
                 // 백엔드 API로 인증 코드 전송
                 const response = await axios.get('/api/auth/naver/naverCallbackServer', {
-                    params: { code, state }
+                    params: { code, state, autoLogin }
                 })
-                setToken(response.data.result.token.accessToken)
+                const { id, name, email, firstPhone, middlePhone, lastPhone, token } = response.data.result
 
+                setTokens(
+                    token,
+                    {
+                        id,
+                        name,
+                        email,
+                        firstPhone,
+                        middlePhone,
+                        lastPhone
+                    }
+                )
                 router.push('/')
             } catch (error) {
                 console.error('naverCallbackClient.tsx : ', error)
@@ -32,7 +46,7 @@ const NaverCallbackClient = () => {
             }
         }
         fetchData()
-    }, [router.isReady, code, state, setToken, loading, router])
+    }, [router.isReady, code, state, setTokens, loading, router])
 
     if (error) {
         return <p>{error}</p>

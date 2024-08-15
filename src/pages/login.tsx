@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import {
     Container,
@@ -7,17 +7,26 @@ import {
     Typography,
     Box,
     CssBaseline,
+    FormControlLabel,
+    Checkbox,
 } from '@mui/material'
 import axios from 'axios'
 import KakaoLogin from './kakaoLogin'
 import NaverLogin from './naverLogin'
+import { useAuth } from '@/context/authContext'
 
 const Login = () => {
     const BASE = '/api/login'
     const [id, setId] = useState('')
     const [pwd, setPwd] = useState('')
     const [error, setError] = useState('')
+    const [isAutoLogin, setIsAutoLogin] = useState(false)
+    const { setTokens } = useAuth()
     const router = useRouter()
+
+    useEffect(() => {
+        sessionStorage.setItem('isAutoLogin', JSON.stringify(isAutoLogin))
+    })
 
     const loginHandler = async (event: React.FormEvent) => {
         event.preventDefault()
@@ -28,14 +37,29 @@ const Login = () => {
             return
         }
 
+        const autoLogin = isAutoLogin ? 'Y' : 'N'
+
         try {
-            const response = await axios.post(BASE, { id, pwd }, {
+            const response = await axios.post(BASE, { id, pwd, autoLogin }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
 
             if (response.status === 200) {
+                const { id, name, email, firstPhone, middlePhone, lastPhone, token } = response.data.result
+
+                setTokens(
+                    token,
+                    {
+                        id,
+                        name,
+                        email,
+                        firstPhone,
+                        middlePhone,
+                        lastPhone
+                    }
+                )
                 router.push('/')
             } else {
                 setError('이메일 또는 비밀번호가 잘못되었습니다.')
@@ -91,6 +115,16 @@ const Login = () => {
                         autoComplete="current-password"
                         value={pwd}
                         onChange={(e) => setPwd(e.target.value)}
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={isAutoLogin}
+                                onChange={(e) => setIsAutoLogin(e.target.checked)}
+                                color="primary"
+                            />
+                        }
+                        label="자동 로그인"
                     />
                     {error && (
                         <Typography color="error" variant="body2">
