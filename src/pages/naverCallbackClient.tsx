@@ -8,31 +8,31 @@ const NaverCallbackClient = () => {
     const { code, state } = router.query
     const { token, setToken } = useToken()
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (code && state) {
-            const fetchData = async () => {
-                try {
-                    // 백엔드 API로 인증 코드 전송
-                    const response = await axios.get('/api/auth/naver/naverCallbackServer', {
-                        params: { code, state }
-                    })
-                    setToken(response.data.result.token.accessToken)
-                } catch (error) {
-                    console.error('naverCallbackClient.tsx : ', error)
-                    setError('로그인실패. 다시시도해주세요.')
-                }
+        const fetchData = async () => {
+            if (!router.isReady || !code || !loading) {
+                return
             }
-            fetchData()
-        }
-    }, [code, state, setToken])
 
-    useEffect(() => {
-        if (token) {
-            // 토큰이 존재하면 홈으로 이동
-            router.push('/')
+            try {
+                // 백엔드 API로 인증 코드 전송
+                const response = await axios.get('/api/auth/naver/naverCallbackServer', {
+                    params: { code, state }
+                })
+                setToken(response.data.result.token.accessToken)
+
+                router.push('/')
+            } catch (error) {
+                console.error('naverCallbackClient.tsx : ', error)
+                setError('로그인실패. 다시시도해주세요.')
+            } finally {
+                setLoading(false)
+            }
         }
-    }, [token, router])
+        fetchData()
+    }, [router.isReady, code, state, setToken, loading, router])
 
     if (error) {
         return <p>{error}</p>

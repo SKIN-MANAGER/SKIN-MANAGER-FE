@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useToken } from '@/context/tokenContext'
@@ -8,31 +8,31 @@ const KakaoCallbackClient = () => {
     const { code } = router.query
     const { token, setToken } = useToken();
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (code) {
-            const fetchData = async () => {
-                try {
-                    // 백엔드 API 호출
-                    const response = await axios.get('/api/auth/kakao/kakaoCallbackServer', {
-                        params: { code }
-                    })
-                    setToken(response.data.result.token.accessToken)
-                } catch (error) {
-                    console.error('kakaoCallbackClient.tsx : ', error)
-                    setError('로그인실패. 다시시도해주세요.')
-                }
+        const fetchData = async () => {
+            if (!router.isReady || !code || !loading) {
+                return
             }
-            fetchData()
-        }
-    }, [code, setToken])
 
-    useEffect(() => {
-        if (token) {
-            // 토큰이 존재하면 홈으로 이동
-            router.push('/')
+            try {
+                // 백엔드 API 호출
+                const response = await axios.get('/api/auth/kakao/kakaoCallbackServer', {
+                    params: { code }
+                })
+                setToken(response.data.result.token.accessToken)
+
+                router.push('/')
+            } catch (error) {
+                console.error('kakaoCallbackClient.tsx : ', error)
+                setError('로그인실패. 다시시도해주세요.')
+            } finally {
+                setLoading(false)
+            }
         }
-    }, [token, router])
+        fetchData()
+    }, [router.isReady, code, setToken, loading, router])
 
     if (error) {
         return <p>{error}</p>
