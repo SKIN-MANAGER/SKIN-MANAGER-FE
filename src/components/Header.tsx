@@ -12,13 +12,13 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import AdbIcon from '@mui/icons-material/Adb'
-import { useToken } from '@/context/tokenContext'
+import { useAuth } from '@/context/authContext'
 
 const pages = ['커뮤니티']
 const settings = ['Profile', 'Account', 'Dashboard', '로그아웃']
 
 const Header = () => {
-    const { token, removeToken } = useToken()
+    const { tokens, removeTokens } = useAuth()
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
@@ -38,7 +38,7 @@ const Header = () => {
     }
 
     const handleLogout = () => {
-        removeToken()
+        removeTokens()
     }
 
     const handleMenuItemClick = (setting: string) => {
@@ -140,7 +140,7 @@ const Header = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        {token ? (
+                        {tokens ? (
                             <>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

@@ -5,7 +5,7 @@ import { createTheme, CssBaseline } from "@mui/material"
 import { ThemeProvider } from "react-bootstrap"
 import Head from 'next/head'
 import { useRouter } from "next/router"
-import { TokenProvider } from "@/context/tokenContext"
+import { AuthProvider } from "@/context/authContext"
 
 const theme = createTheme()
 
@@ -21,11 +21,11 @@ const App = ({ Component, pageProps }: AppProps) => {
         <title>SkinManager</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <TokenProvider>
+      <AuthProvider>
       {!isLoginPage && !isSignupPage && <Header />}
       <Component {...pageProps} />
       {!isLoginPage && !isSignupPage && <Footer />}
-      </TokenProvider>
+      </AuthProvider>
     </ThemeProvider>
   )
 }
