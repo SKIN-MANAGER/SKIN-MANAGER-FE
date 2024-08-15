@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 
 const KakaoCallbackServer = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { code } = req.query
+    const { code, autoLogin } = req.query
     const BASE = 'http://localhost:8080/api/kakao/login'
 
     if (!code) {
@@ -17,7 +17,8 @@ const KakaoCallbackServer = async (req: NextApiRequest, res: NextApiResponse) =>
                 'Content-Type': 'application/json'
             },
             params: {
-                code: code
+                code: code,
+                autoLogin: autoLogin
             }
         })
 

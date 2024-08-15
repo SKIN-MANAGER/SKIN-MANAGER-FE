@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 
 const NaverCallbackServer = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { code, state } = req.query
+    const { code, state, autoLogin } = req.query
     const BASE = 'http://localhost:8080/api/naver/login'
 
     if (!code || !state) {
@@ -18,7 +18,8 @@ const NaverCallbackServer = async (req: NextApiRequest, res: NextApiResponse) =>
             },
             params: {
                 code: code,
-                state: state
+                state: state,
+                autoLogin: autoLogin
             }
         })
 
