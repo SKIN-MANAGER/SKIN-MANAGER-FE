@@ -23,7 +23,6 @@ const KakaoCallbackServer = async (req: NextApiRequest, res: NextApiResponse) =>
 
         // 백엔드에서 반환된 데이터를 프론트엔드로 전달
         res.status(200).json(response.data)
-
     } catch (error) {
         // 에러 처리
         if (axios.isAxiosError(error) && error.response) {
