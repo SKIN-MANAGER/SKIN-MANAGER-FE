@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useAuth } from '@/context/authContext'
 
-const NaverCallbackClient = () => {
+const naverCallbackClient = () => {
     const router = useRouter()
     const { code, state } = router.query
     const [error, setError] = useState('')
@@ -16,7 +16,7 @@ const NaverCallbackClient = () => {
                 return
             }
 
-            const isAutoLogin = sessionStorage.getItem('isAutoLogin')
+            const isAutoLogin = localStorage.getItem('isAutoLogin')
             const autoLogin = isAutoLogin === 'true' ? 'Y' : 'N'
 
             try {
@@ -54,4 +54,4 @@ const NaverCallbackClient = () => {
     return <p>Loading...</p>
 }
 
-export default NaverCallbackClient
+export default naverCallbackClient
