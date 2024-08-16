@@ -25,8 +25,15 @@ const Login = () => {
     const router = useRouter()
 
     useEffect(() => {
-        sessionStorage.setItem('isAutoLogin', JSON.stringify(isAutoLogin))
-    })
+        const storedIsAutoLogin = localStorage.getItem('isAutoLogin')
+        if (storedIsAutoLogin === 'true') {
+            setIsAutoLogin(true)
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('isAutoLogin', isAutoLogin.toString())
+    }, [isAutoLogin])
 
     const loginHandler = async (event: React.FormEvent) => {
         event.preventDefault()

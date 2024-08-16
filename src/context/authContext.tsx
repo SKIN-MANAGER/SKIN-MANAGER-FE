@@ -12,8 +12,9 @@ interface Member {
 
 interface AuthTokens {
   accessToken: string
+  accessTokenExpireTime: number
   refreshToken: string
-  expiresIn: number
+  refreshTokenExpireTime: number
   grantType: string
 }
 

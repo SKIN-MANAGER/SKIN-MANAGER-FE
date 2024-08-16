@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { useAuth } from '@/context/authContext'
 
-const KakaoCallbackClient = () => {
+const kakaoCallbackClient = () => {
     const router = useRouter()
     const { code } = router.query
     const [error, setError] = useState('')
@@ -16,7 +16,7 @@ const KakaoCallbackClient = () => {
                 return
             }
 
-            const isAutoLogin = sessionStorage.getItem('isAutoLogin')
+            const isAutoLogin = localStorage.getItem('isAutoLogin')
             const autoLogin = isAutoLogin === 'true' ? 'Y' : 'N'
 
             try {
@@ -54,4 +54,4 @@ const KakaoCallbackClient = () => {
     return <p>Loading...</p>
 }
 
-export default KakaoCallbackClient
+export default kakaoCallbackClient

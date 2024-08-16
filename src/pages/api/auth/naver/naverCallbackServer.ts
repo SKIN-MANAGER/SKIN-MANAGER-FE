@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 
-const NaverCallbackServer = async (req: NextApiRequest, res: NextApiResponse) => {
+const naverCallbackServer = async (req: NextApiRequest, res: NextApiResponse) => {
     const { code, state, autoLogin } = req.query
     const BASE = 'http://localhost:8080/api/naver/login'
 
@@ -35,4 +35,4 @@ const NaverCallbackServer = async (req: NextApiRequest, res: NextApiResponse) =>
     }
 }
 
-export default NaverCallbackServer
+export default naverCallbackServer
