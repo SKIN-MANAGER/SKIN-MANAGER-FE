@@ -11,8 +11,8 @@ import {
 import axios from 'axios'
 
 const Signup = () => {
-    const BASE_SIGNUP = '/api/signup'
-    const BASE_CHECK_ID = '/api/id/duplicate/check'
+    const BASE_SIGNUP = '/api/v1/member/signup'
+    const BASE_CHECK_ID = '/api/v1/member/id/duplicate/check'
     const [id, setId] = useState('')
     const [pwd, setPwd] = useState('')
     const [pwdchk, setPwdChk] = useState('')

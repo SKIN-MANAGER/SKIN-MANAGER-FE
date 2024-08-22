@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const naverCallbackServer = async (req: NextApiRequest, res: NextApiResponse) => {
     const { code, state, autoLogin } = req.query
-    const BASE = 'http://localhost:8080/api/naver/login'
+    const BASE = 'http://localhost:8080/api/v1/member/naver/login'
 
     if (!code || !state) {
         res.status(400).send('Authorization code or state missing')

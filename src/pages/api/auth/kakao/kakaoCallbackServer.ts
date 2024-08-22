@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const kakaoCallbackServer = async (req: NextApiRequest, res: NextApiResponse) => {
     const { code, autoLogin } = req.query
-    const BASE = 'http://localhost:8080/api/kakao/login'
+    const BASE = 'http://localhost:8080/api/v1/member/kakao/login'
 
     if (!code) {
         res.status(400).send('Authorization code is missing')
