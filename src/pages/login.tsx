@@ -16,7 +16,7 @@ import NaverLogin from './naverLogin'
 import { useAuth } from '@/context/authContext'
 
 const Login = () => {
-    const BASE = '/api/login'
+    const BASE = '/api/v1/member/login'
     const [id, setId] = useState('')
     const [pwd, setPwd] = useState('')
     const [error, setError] = useState('')
