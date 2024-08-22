@@ -3,6 +3,7 @@ import { useAuth } from '@/context/authContext'
 import axiosInstance from './api/axiosInstance'
 
 const RefreshToken = () => {
+    const BASE = '/api/v1/member/login/refresh'
     const { tokens, member, setTokens, removeTokens } = useAuth()
 
     useEffect(() => {
@@ -14,8 +15,6 @@ const RefreshToken = () => {
                         const tokenExpiration = tokens.accessTokenExpireTime
 
                         if (tokenExpiration && currentTime > tokenExpiration) {
-                            const BASE = '/api/v1/member/login/refresh'
-
                             try {
                                 const response = await axiosInstance.post(BASE, {
                                     id: member.id
