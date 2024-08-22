@@ -3,8 +3,8 @@ export default {
   async rewrites() {
     return [
       {
-        source: '/api/:path*', // 요청의 경로 패턴
-        destination: 'http://localhost:8080/api/:path*', // 실제 백엔드 서버 URL
+        source: '/api/v1/:path*', // 요청의 경로 패턴
+        destination: 'http://localhost:8080/api/v1/:path*', // 실제 백엔드 서버 URL
       },
     ];
   },
