@@ -14,7 +14,7 @@ const RefreshToken = () => {
                         const tokenExpiration = tokens.accessTokenExpireTime
 
                         if (tokenExpiration && currentTime > tokenExpiration) {
-                            const BASE = '/api/login/refresh'
+                            const BASE = '/api/v1/member/login/refresh'
 
                             try {
                                 const response = await axiosInstance.post(BASE, {
